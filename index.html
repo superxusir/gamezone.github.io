@@ -198,6 +198,7 @@
       overflow: hidden;  
       position: relative;  
       cursor: pointer;  
+      background-color: #0f3460; /* 添加背景色，防止图片加载前空白 */  
     }  
     
     .game-image img {  
@@ -496,7 +497,7 @@
       <!-- Bloxdhop IO -->  
       <div class="game-card" data-category="action">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/bloxdhop-io/cover-1591952816196.png" alt="Bloxdhop IO">  
+          <img src="https://img.crazygames.com/games/bloxdhop-io/cover-1591952816196.png" alt="Bloxdhop IO" data-game="bloxdhop-io">  
         </div>  
         <div class="game-info">  
           <span class="category-tag action">Action</span>  
@@ -512,7 +513,7 @@
       <!-- Crusher Block -->  
       <div class="game-card" data-category="puzzle">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/crusher-block-jwd/cover-1646130337302.png" alt="Crusher Block">  
+          <img src="https://img.crazygames.com/games/crusher-block-jwd/cover-1646130337302.png" alt="Crusher Block" data-game="crusher-block-jwd">  
         </div>  
         <div class="game-info">  
           <span class="category-tag puzzle">Puzzle</span>  
@@ -528,7 +529,7 @@
       <!-- Playground -->  
       <div class="game-card" data-category="action">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/playground/cover-1584347549326.png" alt="Playground">  
+          <img src="https://img.crazygames.com/games/playground/cover-1584347549326.png" alt="Playground" data-game="playground">  
         </div>  
         <div class="game-info">  
           <span class="category-tag action">Action</span>  
@@ -544,7 +545,7 @@
       <!-- Miniblox -->  
       <div class="game-card" data-category="puzzle">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/miniblox/cover-1580743016629.png" alt="Miniblox">  
+          <img src="https://img.crazygames.com/games/miniblox/cover-1580743016629.png" alt="Miniblox" data-game="miniblox">  
         </div>  
         <div class="game-info">  
           <span class="category-tag puzzle">Puzzle</span>  
@@ -560,7 +561,7 @@
       <!-- Traffic Rider -->  
       <div class="game-card" data-category="racing">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/traffic-rider-vvq/cover-1585906866204.png" alt="Traffic Rider">  
+          <img src="https://img.crazygames.com/games/traffic-rider-vvq/cover-1585906866204.png" alt="Traffic Rider" data-game="traffic-rider-vvq">  
         </div>  
         <div class="game-info">  
           <span class="category-tag racing">Racing</span>  
@@ -576,7 +577,7 @@
       <!-- Bullet Force Multiplayer -->  
       <div class="game-card" data-category="shooting">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/bullet-force-multiplayer/cover-1583234966241.png" alt="Bullet Force Multiplayer">  
+          <img src="https://img.crazygames.com/games/bullet-force-multiplayer/cover-1583234966241.png" alt="Bullet Force Multiplayer" data-game="bullet-force-multiplayer">  
         </div>  
         <div class="game-info">  
           <span class="category-tag shooting">Shooting</span>  
@@ -592,7 +593,7 @@
       <!-- Piles of Mahjong -->  
       <div class="game-card" data-category="puzzle">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/piles-of-mahjong-jhb/cover-1668514669349.png" alt="Piles of Mahjong">  
+          <img src="https://img.crazygames.com/games/piles-of-mahjong-jhb/cover-1668514669349.png" alt="Piles of Mahjong" data-game="piles-of-mahjong-jhb">  
         </div>  
         <div class="game-info">  
           <span class="category-tag puzzle">Puzzle</span>  
@@ -608,7 +609,7 @@
       <!-- Racing Limits -->  
       <div class="game-card" data-category="racing">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/racing-limits/cover-1583232264343.png" alt="Racing Limits">  
+          <img src="https://img.crazygames.com/games/racing-limits/cover-1583232264343.png" alt="Racing Limits" data-game="racing-limits">  
         </div>  
         <div class="game-info">  
           <span class="category-tag racing">Racing</span>  
@@ -624,7 +625,7 @@
       <!-- Skillwarz -->  
       <div class="game-card" data-category="shooting">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/skillwarz/cover-1583401093900.png" alt="Skillwarz">  
+          <img src="https://img.crazygames.com/games/skillwarz/cover-1583401093900.png" alt="Skillwarz" data-game="skillwarz">  
         </div>  
         <div class="game-info">  
           <span class="category-tag shooting">Shooting</span>  
@@ -640,7 +641,7 @@
       <!-- Block Wall Destroyer -->  
       <div class="game-card" data-category="puzzle">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/block-wall-destroyer/cover-1584975066414.png" alt="Block Wall Destroyer">  
+          <img src="https://img.crazygames.com/games/block-wall-destroyer/cover-1584975066414.png" alt="Block Wall Destroyer" data-game="block-wall-destroyer">  
         </div>  
         <div class="game-info">  
           <span class="category-tag puzzle">Puzzle</span>  
@@ -656,7 +657,7 @@
       <!-- Polytrack -->  
       <div class="game-card" data-category="puzzle">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/polytrack/cover-1559725358290.png" alt="Polytrack">  
+          <img src="https://img.crazygames.com/games/polytrack/cover-1559725358290.png" alt="Polytrack" data-game="polytrack">  
         </div>  
         <div class="game-info">  
           <span class="category-tag puzzle">Puzzle</span>  
@@ -672,7 +673,7 @@
       <!-- Fleeing the Complex -->  
       <div class="game-card" data-category="action">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/fleeing-the-complex/cover-1583235367694.png" alt="Fleeing the Complex">  
+          <img src="https://img.crazygames.com/games/fleeing-the-complex/cover-1583235367694.png" alt="Fleeing the Complex" data-game="fleeing-the-complex">  
         </div>  
         <div class="game-info">  
           <span class="category-tag action">Action</span>  
@@ -688,7 +689,7 @@
       <!-- MX Offroad Master -->  
       <div class="game-card" data-category="racing">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/mx-offroad-master/cover-1583235068339.png" alt="MX Offroad Master">  
+          <img src="https://img.crazygames.com/games/mx-offroad-master/cover-1583235068339.png" alt="MX Offroad Master" data-game="mx-offroad-master">  
         </div>  
         <div class="game-info">  
           <span class="category-tag racing">Racing</span>  
@@ -704,7 +705,7 @@
       <!-- Stickman Epic -->  
       <div class="game-card" data-category="action">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/stickman-epic/cover-1583233290522.png" alt="Stickman Epic">  
+          <img src="https://img.crazygames.com/games/stickman-epic/cover-1583233290522.png" alt="Stickman Epic" data-game="stickman-epic">  
         </div>  
         <div class="game-info">  
           <span class="category-tag action">Action</span>  
@@ -720,7 +721,7 @@
       <!-- Stickman WW2 -->  
       <div class="game-card" data-category="action">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/stickman-ww2/cover-1583400805574.png" alt="Stickman WW2">  
+          <img src="https://img.crazygames.com/games/stickman-ww2/cover-1583400805574.png" alt="Stickman WW2" data-game="stickman-ww2">  
         </div>  
         <div class="game-info">  
           <span class="category-tag action">Action</span>  
@@ -736,7 +737,7 @@
       <!-- K Sniper Challenge 3D -->  
       <div class="game-card" data-category="shooting">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/k-sniper-challenge-3d/cover-1583233999693.png" alt="K Sniper Challenge 3D">  
+          <img src="https://img.crazygames.com/games/k-sniper-challenge-3d/cover-1583233999693.png" alt="K Sniper Challenge 3D" data-game="k-sniper-challenge-3d">  
         </div>  
         <div class="game-info">  
           <span class="category-tag shooting">Shooting</span>  
@@ -752,7 +753,7 @@
       <!-- Smash Karts -->  
       <div class="game-card" data-category="racing">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/smash-karts/cover-1584975129006.png" alt="Smash Karts">  
+          <img src="https://img.crazygames.com/games/smash-karts/cover-1584975129006.png" alt="Smash Karts" data-game="smash-karts">  
         </div>  
         <div class="game-info">  
           <span class="category-tag racing">Racing</span>  
@@ -768,7 +769,7 @@
       <!-- Snake IO -->  
       <div class="game-card" data-category="action">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/snake-io/cover-1583401205146.png" alt="Snake IO">  
+          <img src="https://img.crazygames.com/games/snake-io/cover-1583401205146.png" alt="Snake IO" data-game="snake-io">  
         </div>  
         <div class="game-info">  
           <span class="category-tag action">Action</span>  
@@ -784,7 +785,7 @@
       <!-- Kour IO -->  
       <div class="game-card" data-category="shooting">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/kour-io/cover-1583235980400.png" alt="Kour IO">  
+          <img src="https://img.crazygames.com/games/kour-io/cover-1583235980400.png" alt="Kour IO" data-game="kour-io">  
         </div>  
         <div class="game-info">  
           <span class="category-tag shooting">Shooting</span>  
@@ -800,7 +801,7 @@
       <!-- Count Masters: Stickman Games -->  
       <div class="game-card" data-category="action">  
         <div class="game-image">  
-          <img src="https://img.crazygames.com/games/count-masters-stickman-games/cover-1664442257134.png" alt="Count Masters: Stickman Games">  
+          <img src="https://img.crazygames.com/games/count-masters-stickman-games/cover-1664442257134.png" alt="Count Masters: Stickman Games" data-game="count-masters-stickman-games">  
         </div>  
         <div class="game-info">  
           <span class="category-tag action">Action</span>  
@@ -845,6 +846,9 @@
   
   <script>  
     document.addEventListener('DOMContentLoaded', function() {  
+      // 预加载所有游戏图片  
+      preloadGameImages();  
+      
       // Constants  
       const GAMES_PER_PAGE = 8;  
       
@@ -903,6 +907,70 @@
           window.location.href = `game.html?id=${gameId}`;  
         });  
       });  
+      
+      // 添加图片错误处理：使用备用图片URL尝试加载  
+      function preloadGameImages() {  
+        const gameImages = document.querySelectorAll('.game-image img');  
+        
+        gameImages.forEach(img => {  
+          // 设置原始URL  
+          const originalSrc = img.src;  
+          const gameId = img.getAttribute('data-game');  
+          
+          // 设置错误处理  
+          img.onerror = function() {  
+            console.log(`Failed to load image: ${originalSrc}`);  
+            
+            // 尝试其他可能的URL模式  
+            const backupUrl1 = `https://img.crazygames.com/games/${gameId}/cover.png`;  
+            const backupUrl2 = `https://img.crazygames.com/games/${gameId}/thumb.jpg`;  
+            const backupUrl3 = `https://img.crazygames.com/games/${gameId}/thumb.png`;  
+            
+            // 使用可能的备用URL  
+            tryLoadImage(img, [backupUrl1, backupUrl2, backupUrl3]);  
+          };  
+        });  
+      }  
+      
+      // 尝试多个备用URLs  
+      function tryLoadImage(imgElement, urlArray, index = 0) {  
+        if (index >= urlArray.length) {  
+          // 如果所有备用URL都失败，使用游戏名称作为替代显示  
+          const gameTitle = imgElement.getAttribute('alt') || "Game";  
+          const gameId = imgElement.getAttribute('data-game');  
+          
+          // 创建渐变背景并显示游戏名称  
+          imgElement.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`  
+            <svg xmlns="http://www.w3.org/2000/svg" width="250" height="160" viewBox="0 0 250 160">  
+              <defs>  
+                <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">  
+                  <stop offset="0%" stop-color="#0f3460" />  
+                  <stop offset="100%" stop-color="#16213e" />  
+                </linearGradient>  
+              </defs>  
+              <rect width="250" height="160" fill="url(#grad)" />  
+              <text x="125" y="80" font-family="Arial" font-size="18" fill="#8d99ae" text-anchor="middle">${gameTitle}</text>  
+              <text x="125" y="105" font-family="Arial" font-size="12" fill="#8d99ae" text-anchor="middle">Click to Play</text>  
+            </svg>  
+          `);  
+          
+          return;  
+        }  
+        
+        // 尝试当前URL  
+        const tempImg = new Image();  
+        tempImg.onload = function() {  
+          // 如果加载成功，替换原始图像源  
+          imgElement.src = urlArray[index];  
+        };  
+        
+        tempImg.onerror = function() {  
+          // 如果失败，尝试下一个URL  
+          tryLoadImage(imgElement, urlArray, index + 1);  
+        };  
+        
+        tempImg.src = urlArray[index];  
+      }  
       
       // Filter games and update pagination  
       function filterGames() {  
