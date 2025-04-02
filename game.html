@@ -135,6 +135,7 @@
       border-radius: 8px;  
       overflow: hidden;  
       box-shadow: 0 5px 25px rgba(0,0,0,0.3);  
+      margin-top: 20px;  
     }  
     
     .game-frame {  
@@ -144,6 +145,30 @@
       width: 100%;  
       height: 100%;  
       border: none;  
+    }  
+    
+    .play-game-btn {  
+      display: block;  
+      background-color: #e94560;  
+      color: white;  
+      text-align: center;  
+      padding: 15px;  
+      border-radius: 8px;  
+      font-size: 18px;  
+      font-weight: bold;  
+      text-decoration: none;  
+      cursor: pointer;  
+      transition: background-color 0.3s, transform 0.2s;  
+      box-shadow: 0 4px 10px rgba(233, 69, 96, 0.4);  
+    }  
+    
+    .play-game-btn:hover {  
+      background-color: #d13854;  
+      transform: translateY(-2px);  
+    }  
+    
+    .play-game-btn:active {  
+      transform: translateY(0);  
     }  
     
     .game-info-sidebar {  
@@ -392,6 +417,35 @@
       color: #e94560;  
     }  
     
+    /* Direct Play CTA */  
+    .direct-play-container {  
+      margin-bottom: 20px;  
+    }  
+    
+    .or-divider {  
+      text-align: center;  
+      margin: 15px 0;  
+      color: #8d99ae;  
+      position: relative;  
+    }  
+    
+    .or-divider:before, .or-divider:after {  
+      content: '';  
+      position: absolute;  
+      top: 50%;  
+      width: 45%;  
+      height: 1px;  
+      background-color: #2a2a4a;  
+    }  
+    
+    .or-divider:before {  
+      left: 0;  
+    }  
+    
+    .or-divider:after {  
+      right: 0;  
+    }  
+    
     /* Responsive Design */  
     @media (max-width: 992px) {  
       .game-detail {  
@@ -467,8 +521,19 @@
     </div>  
     
     <div class="game-detail">  
-      <div class="game-frame-container">  
-        <iframe id="gameFrame" class="game-frame" src="" allowfullscreen allow="gamepad *;"></iframe>  
+      <div>  
+        <!-- 新添加的直接游戏按钮区域 -->  
+        <div class="direct-play-container">  
+          <a id="directPlayButton" href="#" target="_blank" class="play-game-btn">  
+            点击开始玩游戏  
+          </a>  
+        </div>  
+        
+        <div class="or-divider">或者在下方框架中游玩</div>  
+        
+        <div class="game-frame-container">  
+          <iframe id="gameFrame" class="game-frame" src="" allowfullscreen allow="gamepad *;"></iframe>  
+        </div>  
       </div>  
       
       <div class="game-info-sidebar">  
@@ -569,6 +634,11 @@
         document.getElementById('gameDeveloper').textContent = game.developer;  
         document.getElementById('gameReleaseDate').textContent = game.releaseDate;  
         document.getElementById('gameControls').textContent = game.controls;  
+        
+        // 设置直接游戏按钮  
+        const directPlayButton = document.getElementById('directPlayButton');  
+        directPlayButton.href = `https://www.crazygames.com/game/${gameId}`;  
+        directPlayButton.textContent = `点击开始玩 ${game.title}`;  
         
         // 设置iframe源  
         document.getElementById('gameFrame').src = `https://www.crazygames.com/embed/${gameId}`;  
