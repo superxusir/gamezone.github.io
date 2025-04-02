@@ -1,0 +1,614 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>Game Detail - GameZone</title>  
+  <style>  
+    * {  
+      margin: 0;  
+      padding: 0;  
+      box-sizing: border-box;  
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    }  
+    
+    body {  
+      background-color: #1a1a2e;  
+      color: #e6e6e6;  
+      display: flex;  
+      flex-direction: column;  
+      min-height: 100vh;  
+    }  
+    
+    a {  
+      text-decoration: none;  
+      color: inherit;  
+    }  
+    
+    .container {  
+      max-width: 1200px;  
+      margin: 0 auto;  
+      padding: 0 20px;  
+    }  
+    
+    /* Header Styles */  
+    header {  
+      background-color: #16213e;  
+      padding: 15px 0;  
+      color: white;  
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);  
+    }  
+    
+    .header-inner {  
+      display: flex;  
+      justify-content: space-between;  
+      align-items: center;  
+    }  
+    
+    .logo {  
+      font-size: 24px;  
+      font-weight: bold;  
+    }  
+    
+    .logo span {  
+      color: #e94560;  
+    }  
+    
+    nav {  
+      display: flex;  
+    }  
+    
+    nav a {  
+      margin-left: 20px;  
+      color: white;  
+      transition: color 0.3s;  
+    }  
+    
+    nav a:hover {  
+      color: #e94560;  
+    }  
+    
+    .search-box {  
+      display: flex;  
+    }  
+    
+    .search-box input {  
+      padding: 8px 12px;  
+      border: none;  
+      border-radius: 4px 0 0 4px;  
+      width: 200px;  
+      background-color: #0f3460;  
+      color: white;  
+    }  
+    
+    .search-box input::placeholder {  
+      color: #8d99ae;  
+    }  
+    
+    .search-box button {  
+      padding: 8px 15px;  
+      background-color: #e94560;  
+      color: white;  
+      border: none;  
+      border-radius: 0 4px 4px 0;  
+      cursor: pointer;  
+    }  
+    
+    /* Content Styles */  
+    main {  
+      flex: 1;  
+      padding: 40px 0;  
+    }  
+    
+    .breadcrumb {  
+      display: flex;  
+      margin-bottom: 20px;  
+      color: #8d99ae;  
+      font-size: 14px;  
+    }  
+    
+    .breadcrumb a {  
+      color: #8d99ae;  
+      transition: color 0.3s;  
+    }  
+    
+    .breadcrumb a:hover {  
+      color: #e94560;  
+    }  
+    
+    .breadcrumb .separator {  
+      margin: 0 10px;  
+    }  
+    
+    .game-detail {  
+      display: grid;  
+      grid-template-columns: 1fr 350px;  
+      gap: 30px;  
+    }  
+    
+    .game-frame-container {  
+      position: relative;  
+      width: 100%;  
+      height: 0;  
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */  
+      background-color: #0f3460;  
+      border-radius: 8px;  
+      overflow: hidden;  
+      box-shadow: 0 5px 25px rgba(0,0,0,0.3);  
+    }  
+    
+    .game-frame {  
+      position: absolute;  
+      top: 0;  
+      left: 0;  
+      width: 100%;  
+      height: 100%;  
+      border: none;  
+    }  
+    
+    .game-info-sidebar {  
+      background-color: #16213e;  
+      border-radius: 8px;  
+      padding: 20px;  
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);  
+    }  
+    
+    .game-title {  
+      font-size: 24px;  
+      font-weight: 600;  
+      margin-bottom: 15px;  
+      color: white;  
+    }  
+    
+    .category-tag {  
+      display: inline-block;  
+      padding: 5px 10px;  
+      border-radius: 4px;  
+      font-size: 14px;  
+      color: white;  
+      margin-bottom: 20px;  
+    }  
+    
+    .action {  
+      background-color: #3498db;  
+    }  
+    
+    .puzzle {  
+      background-color: #9b59b6;  
+    }  
+    
+    .racing {  
+      background-color: #2ecc71;  
+    }  
+    
+    .shooting {  
+      background-color: #e67e22;  
+    }  
+    
+    .strategy {  
+      background-color: #1abc9c;  
+    }  
+    
+    .game-details-list {  
+      margin-bottom: 20px;  
+    }  
+    
+    .game-detail-item {  
+      display: flex;  
+      border-bottom: 1px solid #2a2a4a;  
+      padding: 10px 0;  
+    }  
+    
+    .detail-label {  
+      flex: 1;  
+      color: #8d99ae;  
+    }  
+    
+    .detail-value {  
+      flex: 2;  
+      color: white;  
+      font-weight: 500;  
+    }  
+    
+    .game-rating {  
+      margin-bottom: 20px;  
+    }  
+    
+    .stars {  
+      color: #f39c12;  
+      font-size: 20px;  
+      margin-bottom: 5px;  
+    }  
+    
+    .play-count {  
+      color: #8d99ae;  
+      font-size: 14px;  
+    }  
+    
+    .game-description {  
+      color: #8d99ae;  
+      line-height: 1.6;  
+      margin-bottom: 25px;  
+    }  
+    
+    .back-btn {  
+      display: inline-block;  
+      background-color: #0f3460;  
+      color: white;  
+      padding: 10px 15px;  
+      border-radius: 4px;  
+      transition: background-color 0.3s;  
+      font-weight: 500;  
+      margin-top: 20px;  
+    }  
+    
+    .back-btn:hover {  
+      background-color: #e94560;  
+    }  
+    
+    .similar-games {  
+      margin-top: 50px;  
+    }  
+    
+    .section-title {  
+      font-size: 22px;  
+      margin-bottom: 20px;  
+      color: white;  
+      position: relative;  
+      padding-left: 12px;  
+    }  
+    
+    .section-title:before {  
+      content: '';  
+      position: absolute;  
+      left: 0;  
+      top: 50%;  
+      transform: translateY(-50%);  
+      width: 4px;  
+      height: 20px;  
+      background-color: #e94560;  
+    }  
+    
+    .similar-games-grid {  
+      display: grid;  
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));  
+      gap: 20px;  
+    }  
+    
+    .similar-game-card {  
+      background-color: #16213e;  
+      border-radius: 8px;  
+      overflow: hidden;  
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);  
+      transition: transform 0.3s;  
+    }  
+    
+    .similar-game-card:hover {  
+      transform: translateY(-5px);  
+    }  
+    
+    .similar-game-image {  
+      height: 120px;  
+      overflow: hidden;  
+    }  
+    
+    .similar-game-image img {  
+      width: 100%;  
+      height: 100%;  
+      object-fit: cover;  
+      transition: transform 0.5s;  
+    }  
+    
+    .similar-game-card:hover .similar-game-image img {  
+      transform: scale(1.05);  
+    }  
+    
+    .similar-game-info {  
+      padding: 10px;  
+    }  
+    
+    .similar-game-title {  
+      font-size: 16px;  
+      font-weight: 500;  
+      margin-bottom: 5px;  
+      color: white;  
+      white-space: nowrap;  
+      overflow: hidden;  
+      text-overflow: ellipsis;  
+    }  
+    
+    .similar-game-category {  
+      color: #8d99ae;  
+      font-size: 12px;  
+    }  
+    
+    /* Footer Styles */  
+    footer {  
+      background-color: #0f3460;  
+      color: #e6e6e6;  
+      padding: 40px 0 0;  
+      margin-top: 40px;  
+    }  
+    
+    .footer-content {  
+      display: grid;  
+      grid-template-columns: repeat(2, 1fr);  
+      gap: 30px;  
+    }  
+    
+    .footer-section h3 {  
+      font-size: 18px;  
+      margin-bottom: 20px;  
+      position: relative;  
+      padding-bottom: 10px;  
+      color: #fff;  
+    }  
+    
+    .footer-section h3::after {  
+      content: '';  
+      position: absolute;  
+      left: 0;  
+      bottom: 0;  
+      width: 50px;  
+      height: 2px;  
+      background-color: #e94560;  
+    }  
+    
+    .footer-section p {  
+      line-height: 1.6;  
+      margin-bottom: 20px;  
+      color: #8d99ae;  
+      font-size: 14px;  
+    }  
+    
+    .footer-section ul {  
+      list-style: none;  
+    }  
+    
+    .footer-section ul li {  
+      margin-bottom: 10px;  
+    }  
+    
+    .footer-section ul li a {  
+      color: #8d99ae;  
+      font-size: 14px;  
+      transition: color 0.3s;  
+    }  
+    
+    .footer-section ul li a:hover {  
+      color: #e94560;  
+    }  
+    
+    .footer-bottom {  
+      background-color: #0a2647;  
+      padding: 15px 0;  
+      text-align: center;  
+      margin-top: 30px;  
+      font-size: 14px;  
+      color: #8d99ae;  
+    }  
+    
+    .footer-bottom a {  
+      color: #e94560;  
+    }  
+    
+    /* Responsive Design */  
+    @media (max-width: 992px) {  
+      .game-detail {  
+        grid-template-columns: 1fr;  
+      }  
+    }  
+    
+    @media (max-width: 768px) {  
+      .header-inner {  
+        flex-direction: column;  
+      }  
+      
+      .logo {  
+        margin-bottom: 15px;  
+      }  
+      
+      nav {  
+        margin-bottom: 15px;  
+      }  
+      
+      .search-box {  
+        width: 100%;  
+      }  
+      
+      .search-box input {  
+        flex: 1;  
+      }  
+      
+      .footer-content {  
+        grid-template-columns: 1fr;  
+        text-align: center;  
+      }  
+      
+      .footer-section h3::after {  
+        left: 50%;  
+        transform: translateX(-50%);  
+      }  
+    }  
+  </style>  
+  <!-- 在</head>标签前添加这一行 -->  
+  <script src="games-data.js"></script>  
+</head>  
+<body>  
+  <header>  
+    <div class="container">  
+      <div class="header-inner">  
+        <div class="logo">  
+          <a href="index.html">Game<span>Zone</span></a>  
+        </div>  
+        
+        <nav>  
+          <a href="index.html">Home</a>  
+          <a href="index.html">Categories</a>  
+          <a href="index.html">New Games</a>  
+          <a href="index.html">Top Games</a>  
+        </nav>  
+        
+        <div class="search-box">  
+          <input type="text" placeholder="Search games...">  
+          <button>Search</button>  
+        </div>  
+      </div>  
+    </div>  
+  </header>  
+  
+  <main class="container">  
+    <div class="breadcrumb">  
+      <a href="index.html">Home</a>  
+      <span class="separator">›</span>  
+      <a href="index.html" id="gameCategory">Category</a>  
+      <span class="separator">›</span>  
+      <span id="gameTitleBreadcrumb">Game Title</span>  
+    </div>  
+    
+    <div class="game-detail">  
+      <div class="game-frame-container">  
+        <iframe id="gameFrame" class="game-frame" src="" allowfullscreen allow="gamepad *;"></iframe>  
+      </div>  
+      
+      <div class="game-info-sidebar">  
+        <h1 class="game-title" id="gameTitle">Game Title</h1>  
+        <div id="gameCategoryTag" class="category-tag action">Action</div>  
+        
+        <div class="game-rating">  
+          <div class="stars" id="gameStars">★★★★☆</div>  
+          <div class="play-count" id="gamePlays">345K plays</div>  
+        </div>  
+        
+        <p class="game-description" id="gameDescription">  
+          This is an exciting game where you can experience action-packed adventures.   
+          Have fun playing this amazing title on GameZone!  
+        </p>  
+        
+        <div class="game-details-list">  
+          <div class="game-detail-item">  
+            <div class="detail-label">Developer</div>  
+            <div class="detail-value" id="gameDeveloper">Game Studio</div>  
+          </div>  
+          <div class="game-detail-item">  
+            <div class="detail-label">Release Date</div>  
+            <div class="detail-value" id="gameReleaseDate">2023</div>  
+          </div>  
+          <div class="game-detail-item">  
+            <div class="detail-label">Platform</div>  
+            <div class="detail-value">Browser (HTML5)</div>  
+          </div>  
+          <div class="game-detail-item">  
+            <div class="detail-label">Controls</div>  
+            <div class="detail-value" id="gameControls">Mouse, Keyboard</div>  
+          </div>  
+        </div>  
+        
+        <a href="index.html" class="back-btn">Back to Games</a>  
+      </div>  
+    </div>  
+    
+    <div class="similar-games">  
+      <h2 class="section-title">Similar Games</h2>  
+      <div class="similar-games-grid" id="similarGamesContainer">  
+        <!-- Similar games will be loaded dynamically -->  
+      </div>  
+    </div>  
+  </main>  
+  
+  <footer>  
+    <div class="container">  
+      <div class="footer-content">  
+        <div class="footer-section">  
+          <h3>About Us</h3>  
+          <p>GameZone is dedicated to providing fun online HTML5 games that you can play for free. No downloads or installations needed.</p>  
+        </div>  
+        
+        <div class="footer-section">  
+          <h3>Help & Support</h3>  
+          <ul>  
+            <li><a href="#">Contact Us</a></li>  
+            <li><a href="#">Privacy Policy</a></li>  
+            <li><a href="#">Terms of Use</a></li>  
+          </ul>  
+        </div>  
+      </div>  
+      
+      <div class="footer-bottom">  
+        <p>© 2025 GameZone | Built with GitHub Pages | All rights reserved</p>  
+      </div>  
+    </div>  
+  </footer>  
+  
+  <script>  
+    document.addEventListener('DOMContentLoaded', function() {  
+      // 从URL参数获取游戏ID  
+      const urlParams = new URLSearchParams(window.location.search);  
+      const gameId = urlParams.get('id');  
+      
+      // 使用games-data.js中的GAMES_DATA  
+      if (gameId && GAMES_DATA[gameId]) {  
+        const game = GAMES_DATA[gameId];  
+        
+        // 更新页面标题  
+        document.title = `${game.title} - GameZone`;  
+        
+        // 更新游戏信息  
+        document.getElementById('gameTitle').textContent = game.title;  
+        document.getElementById('gameTitleBreadcrumb').textContent = game.title;  
+        document.getElementById('gameCategory').textContent = game.categoryName;  
+        document.getElementById('gameCategory').href = `index.html?category=${game.category}`;  
+        
+        const categoryTag = document.getElementById('gameCategoryTag');  
+        categoryTag.textContent = game.categoryName;  
+        categoryTag.className = `category-tag ${game.category}`;  
+        
+        document.getElementById('gameStars').textContent = game.stars;  
+        document.getElementById('gamePlays').textContent = game.plays;  
+        document.getElementById('gameDescription').textContent = game.description;  
+        document.getElementById('gameDeveloper').textContent = game.developer;  
+        document.getElementById('gameReleaseDate').textContent = game.releaseDate;  
+        document.getElementById('gameControls').textContent = game.controls;  
+        
+        // 设置iframe源  
+        document.getElementById('gameFrame').src = `https://www.crazygames.com/embed/${gameId}`;  
+        
+        // 加载相似游戏  
+        const similarGamesContainer = document.getElementById('similarGamesContainer');  
+        if (game.similar && game.similar.length > 0) {  
+          game.similar.forEach(similarGameId => {  
+            if (GAMES_DATA[similarGameId]) {  
+              const similarGame = GAMES_DATA[similarGameId];  
+              
+              const gameCard = document.createElement('a');  
+              gameCard.href = `game.html?id=${similarGameId}`;  
+              gameCard.className = 'similar-game-card';  
+              
+              // 使用imageUrl属性获取游戏图片，如果存在的话  
+              const imageUrl = similarGame.imageUrl || `https://img.crazygames.com/games/${similarGameId}/cover-1583232264343.png`;  
+              
+              gameCard.innerHTML = `  
+                <div class="similar-game-image">  
+                  <img src="${imageUrl}" alt="${similarGame.title}">  
+                </div>  
+                <div class="similar-game-info">  
+                  <h3 class="similar-game-title">${similarGame.title}</h3>  
+                  <div class="similar-game-category">${similarGame.categoryName}</div>  
+                </div>  
+              `;  
+              
+              similarGamesContainer.appendChild(gameCard);  
+            }  
+          });  
+        } else {  
+          // 如果没有相似游戏，显示一条消息  
+          similarGamesContainer.innerHTML = '<p style="color: #8d99ae; text-align: center; grid-column: 1 / -1;">No similar games found.</p>';  
+        }  
+      } else {  
+        // 如果游戏ID无效，重定向到首页  
+        window.location.href = 'index.html';  
+      }  
+    });  
+  </script>  
+</body>  
+</html>

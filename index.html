@@ -1,0 +1,989 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>GameZone - Play Free Online Games</title>  
+  <style>  
+    * {  
+      margin: 0;  
+      padding: 0;  
+      box-sizing: border-box;  
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    }  
+    
+    body {  
+      background-color: #1a1a2e;  
+      color: #e6e6e6;  
+      display: flex;  
+      flex-direction: column;  
+      min-height: 100vh;  
+    }  
+    
+    a {  
+      text-decoration: none;  
+      color: inherit;  
+    }  
+    
+    .container {  
+      max-width: 1200px;  
+      margin: 0 auto;  
+      padding: 0 20px;  
+    }  
+    
+    /* Header Styles */  
+    header {  
+      background-color: #16213e;  
+      padding: 15px 0;  
+      color: white;  
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);  
+    }  
+    
+    .header-inner {  
+      display: flex;  
+      justify-content: space-between;  
+      align-items: center;  
+    }  
+    
+    .logo {  
+      font-size: 24px;  
+      font-weight: bold;  
+    }  
+    
+    .logo span {  
+      color: #e94560;  
+    }  
+    
+    nav {  
+      display: flex;  
+    }  
+    
+    nav a {  
+      margin-left: 20px;  
+      color: white;  
+      transition: color 0.3s;  
+    }  
+    
+    nav a:hover {  
+      color: #e94560;  
+    }  
+    
+    .search-box {  
+      display: flex;  
+    }  
+    
+    .search-box input {  
+      padding: 8px 12px;  
+      border: none;  
+      border-radius: 4px 0 0 4px;  
+      width: 200px;  
+      background-color: #0f3460;  
+      color: white;  
+    }  
+    
+    .search-box input::placeholder {  
+      color: #8d99ae;  
+    }  
+    
+    .search-box button {  
+      padding: 8px 15px;  
+      background-color: #e94560;  
+      color: white;  
+      border: none;  
+      border-radius: 0 4px 4px 0;  
+      cursor: pointer;  
+    }  
+    
+    /* Content Styles */  
+    main {  
+      flex: 1;  
+    }  
+    
+    .section-header {  
+      margin: 30px 0 20px;  
+      position: relative;  
+      display: flex;  
+      align-items: center;  
+    }  
+    
+    .section-header:before {  
+      content: '';  
+      width: 4px;  
+      height: 28px;  
+      background-color: #e94560;  
+      display: inline-block;  
+      margin-right: 12px;  
+    }  
+    
+    .section-title {  
+      font-size: 28px;  
+      color: white;  
+      font-weight: 600;  
+    }  
+    
+    /* Categories - LARGER SIZE */  
+    .category-tabs {  
+      display: flex;  
+      margin-bottom: 25px;  
+      border-bottom: 1px solid #2a2a4a;  
+    }  
+    
+    .category-tab {  
+      padding: 16px 30px;  
+      cursor: pointer;  
+      color: #8d99ae;  
+      position: relative;  
+      font-size: 16px;  
+      font-weight: 500;  
+      transition: color 0.3s;  
+    }  
+    
+    .category-tab:hover {  
+      color: #e94560;  
+    }  
+    
+    .category-tab.active {  
+      color: white;  
+      font-weight: 600;  
+    }  
+    
+    .category-tab.active:after {  
+      content: '';  
+      position: absolute;  
+      bottom: -1px;  
+      left: 0;  
+      width: 100%;  
+      height: 3px;  
+      background-color: #e94560;  
+    }  
+    
+    /* Game Grid */  
+    .sort-dropdown {  
+      text-align: right;  
+      margin-bottom: 20px;  
+    }  
+    
+    .sort-select {  
+      padding: 10px 15px;  
+      border: 1px solid #2a2a4a;  
+      border-radius: 4px;  
+      background-color: #0f3460;  
+      color: white;  
+      font-size: 14px;  
+    }  
+    
+    .games-grid {  
+      display: grid;  
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));  
+      gap: 20px;  
+      margin-bottom: 30px;  
+    }  
+    
+    .game-card {  
+      background-color: #16213e;  
+      border-radius: 8px;  
+      overflow: hidden;  
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);  
+      transition: transform 0.3s, box-shadow 0.3s;  
+    }  
+    
+    .game-card:hover {  
+      transform: translateY(-5px);  
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);  
+    }  
+    
+    /* Game Image */  
+    .game-image {  
+      height: 160px;  
+      overflow: hidden;  
+      position: relative;  
+      cursor: pointer;  
+    }  
+    
+    .game-image img {  
+      width: 100%;  
+      height: 100%;  
+      object-fit: cover;  
+      transition: transform 0.5s;  
+    }  
+    
+    .game-card:hover .game-image img {  
+      transform: scale(1.05);  
+    }  
+    
+    /* Play overlay effect */  
+    .game-image::after {  
+      content: "PLAY";  
+      position: absolute;  
+      top: 0;  
+      left: 0;  
+      width: 100%;  
+      height: 100%;  
+      background-color: rgba(0, 0, 0, 0.6);  
+      color: white;  
+      display: flex;  
+      align-items: center;  
+      justify-content: center;  
+      font-size: 24px;  
+      font-weight: bold;  
+      opacity: 0;  
+      transition: opacity 0.3s;  
+    }  
+    
+    .game-card:hover .game-image::after {  
+      opacity: 1;  
+    }  
+    
+    .game-info {  
+      padding: 15px;  
+    }  
+    
+    .category-tag {  
+      display: inline-block;  
+      padding: 5px 10px;  
+      border-radius: 4px;  
+      font-size: 14px;  
+      color: white;  
+      margin-bottom: 10px;  
+    }  
+    
+    .action {  
+      background-color: #3498db;  
+    }  
+    
+    .puzzle {  
+      background-color: #9b59b6;  
+    }  
+    
+    .racing {  
+      background-color: #2ecc71;  
+    }  
+    
+    .shooting {  
+      background-color: #e67e22;  
+    }  
+    
+    .strategy {  
+      background-color: #1abc9c;  
+    }  
+    
+    .game-title {  
+      font-size: 18px;  
+      font-weight: 600;  
+      margin-bottom: 5px;  
+      color: white;  
+    }  
+    
+    .game-meta {  
+      display: flex;  
+      justify-content: space-between;  
+      color: #8d99ae;  
+      font-size: 14px;  
+      margin-bottom: 15px;  
+    }  
+    
+    .rating {  
+      color: #f39c12;  
+    }  
+    
+    .play-btn {  
+      display: block;  
+      text-align: center;  
+      background-color: #0f3460;  
+      color: white;  
+      padding: 12px;  
+      border-radius: 4px;  
+      font-weight: 500;  
+      transition: background-color 0.3s;  
+      cursor: pointer;  
+    }  
+    
+    .play-btn:hover {  
+      background-color: #e94560;  
+    }  
+    
+    /* Hide games not in current category/page */  
+    .game-card.hidden {  
+      display: none;  
+    }  
+    
+    /* Pagination */  
+    .pagination {  
+      display: flex;  
+      justify-content: center;  
+      margin: 30px 0;  
+    }  
+    
+    .page-button {  
+      min-width: 40px;  
+      height: 40px;  
+      display: flex;  
+      align-items: center;  
+      justify-content: center;  
+      margin: 0 5px;  
+      border-radius: 4px;  
+      background-color: #16213e;  
+      color: white;  
+      cursor: pointer;  
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);  
+      transition: all 0.3s;  
+    }  
+    
+    .page-button.active {  
+      background-color: #e94560;  
+      color: white;  
+    }  
+    
+    .page-button:hover:not(.active) {  
+      background-color: #0f3460;  
+    }  
+    
+    /* Footer Styles - SIMPLIFIED */  
+    footer {  
+      background-color: #0f3460;  
+      color: #e6e6e6;  
+      padding: 40px 0 0;  
+      margin-top: 40px;  
+    }  
+    
+    .footer-content {  
+      display: grid;  
+      grid-template-columns: repeat(2, 1fr);  
+      gap: 30px;  
+    }  
+    
+    .footer-section h3 {  
+      font-size: 18px;  
+      margin-bottom: 20px;  
+      position: relative;  
+      padding-bottom: 10px;  
+      color: #fff;  
+    }  
+    
+    .footer-section h3::after {  
+      content: '';  
+      position: absolute;  
+      left: 0;  
+      bottom: 0;  
+      width: 50px;  
+      height: 2px;  
+      background-color: #e94560;  
+    }  
+    
+    .footer-section p {  
+      line-height: 1.6;  
+      margin-bottom: 20px;  
+      color: #8d99ae;  
+      font-size: 14px;  
+    }  
+    
+    .footer-section ul {  
+      list-style: none;  
+    }  
+    
+    .footer-section ul li {  
+      margin-bottom: 10px;  
+    }  
+    
+    .footer-section ul li a {  
+      color: #8d99ae;  
+      font-size: 14px;  
+      transition: color 0.3s;  
+    }  
+    
+    .footer-section ul li a:hover {  
+      color: #e94560;  
+    }  
+    
+    .footer-bottom {  
+      background-color: #0a2647;  
+      padding: 15px 0;  
+      text-align: center;  
+      margin-top: 30px;  
+      font-size: 14px;  
+      color: #8d99ae;  
+    }  
+    
+    .footer-bottom a {  
+      color: #e94560;  
+    }  
+    
+    /* Responsive Design */  
+    @media (max-width: 768px) {  
+      .header-inner {  
+        flex-direction: column;  
+      }  
+      
+      .logo {  
+        margin-bottom: 15px;  
+      }  
+      
+      nav {  
+        margin-bottom: 15px;  
+      }  
+      
+      .search-box {  
+        width: 100%;  
+      }  
+      
+      .search-box input {  
+        flex: 1;  
+      }  
+      
+      .category-tabs {  
+        overflow-x: auto;  
+        white-space: nowrap;  
+      }  
+      
+      .footer-content {  
+        grid-template-columns: 1fr;  
+        text-align: center;  
+      }  
+      
+      .footer-section h3::after {  
+        left: 50%;  
+        transform: translateX(-50%);  
+      }  
+    }  
+  </style>  
+</head>  
+<body>  
+  <header>  
+    <div class="container">  
+      <div class="header-inner">  
+        <div class="logo">  
+          <a href="index.html">Game<span>Zone</span></a>  
+        </div>  
+        
+        <nav>  
+          <a href="index.html">Home</a>  
+          <a href="index.html">Categories</a>  
+          <a href="index.html">New Games</a>  
+          <a href="index.html">Top Games</a>  
+        </nav>  
+        
+        <div class="search-box">  
+          <input type="text" placeholder="Search games...">  
+          <button>Search</button>  
+        </div>  
+      </div>  
+    </div>  
+  </header>  
+  
+  <main class="container">  
+    <div class="section-header">  
+      <h2 class="section-title">All Games</h2>  
+    </div>  
+    
+    <div class="category-tabs">  
+      <div class="category-tab active" data-category="all">All</div>  
+      <div class="category-tab" data-category="action">Action</div>  
+      <div class="category-tab" data-category="puzzle">Puzzle</div>  
+      <div class="category-tab" data-category="racing">Racing</div>  
+      <div class="category-tab" data-category="shooting">Shooting</div>  
+      <div class="category-tab" data-category="strategy">Strategy</div>  
+    </div>  
+    
+    <div class="sort-dropdown">  
+      <select class="sort-select">  
+        <option value="popular">Most Popular</option>  
+        <option value="newest">Newest</option>  
+        <option value="rating">Highest Rated</option>  
+      </select>  
+    </div>  
+    
+    <div class="games-grid" id="gamesGrid">  
+      <!-- Bloxdhop IO -->  
+      <div class="game-card" data-category="action">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/bloxdhop-io/cover-1591952816196.png" alt="Bloxdhop IO">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag action">Action</span>  
+          <h3 class="game-title">Bloxdhop IO</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">245K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="bloxdhop-io">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Crusher Block -->  
+      <div class="game-card" data-category="puzzle">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/crusher-block-jwd/cover-1646130337302.png" alt="Crusher Block">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag puzzle">Puzzle</span>  
+          <h3 class="game-title">Crusher Block</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">198K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="crusher-block-jwd">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Playground -->  
+      <div class="game-card" data-category="action">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/playground/cover-1584347549326.png" alt="Playground">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag action">Action</span>  
+          <h3 class="game-title">Playground</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">176K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="playground">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Miniblox -->  
+      <div class="game-card" data-category="puzzle">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/miniblox/cover-1580743016629.png" alt="Miniblox">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag puzzle">Puzzle</span>  
+          <h3 class="game-title">Miniblox</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★☆☆</div>  
+            <div class="plays">132K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="miniblox">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Traffic Rider -->  
+      <div class="game-card" data-category="racing">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/traffic-rider-vvq/cover-1585906866204.png" alt="Traffic Rider">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag racing">Racing</span>  
+          <h3 class="game-title">Traffic Rider</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★★</div>  
+            <div class="plays">425K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="traffic-rider-vvq">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Bullet Force Multiplayer -->  
+      <div class="game-card" data-category="shooting">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/bullet-force-multiplayer/cover-1583234966241.png" alt="Bullet Force Multiplayer">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag shooting">Shooting</span>  
+          <h3 class="game-title">Bullet Force Multiplayer</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★★</div>  
+            <div class="plays">589K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="bullet-force-multiplayer">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Piles of Mahjong -->  
+      <div class="game-card" data-category="puzzle">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/piles-of-mahjong-jhb/cover-1668514669349.png" alt="Piles of Mahjong">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag puzzle">Puzzle</span>  
+          <h3 class="game-title">Piles of Mahjong</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">376K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="piles-of-mahjong-jhb">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Racing Limits -->  
+      <div class="game-card" data-category="racing">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/racing-limits/cover-1583232264343.png" alt="Racing Limits">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag racing">Racing</span>  
+          <h3 class="game-title">Racing Limits</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★★</div>  
+            <div class="plays">432K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="racing-limits">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Skillwarz -->  
+      <div class="game-card" data-category="shooting">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/skillwarz/cover-1583401093900.png" alt="Skillwarz">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag shooting">Shooting</span>  
+          <h3 class="game-title">Skillwarz</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">321K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="skillwarz">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Block Wall Destroyer -->  
+      <div class="game-card" data-category="puzzle">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/block-wall-destroyer/cover-1584975066414.png" alt="Block Wall Destroyer">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag puzzle">Puzzle</span>  
+          <h3 class="game-title">Block Wall Destroyer</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">256K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="block-wall-destroyer">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Polytrack -->  
+      <div class="game-card" data-category="puzzle">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/polytrack/cover-1559725358290.png" alt="Polytrack">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag puzzle">Puzzle</span>  
+          <h3 class="game-title">Polytrack</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">198K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="polytrack">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Fleeing the Complex -->  
+      <div class="game-card" data-category="action">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/fleeing-the-complex/cover-1583235367694.png" alt="Fleeing the Complex">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag action">Action</span>  
+          <h3 class="game-title">Fleeing the Complex</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★★</div>  
+            <div class="plays">345K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="fleeing-the-complex">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- MX Offroad Master -->  
+      <div class="game-card" data-category="racing">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/mx-offroad-master/cover-1583235068339.png" alt="MX Offroad Master">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag racing">Racing</span>  
+          <h3 class="game-title">MX Offroad Master</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">278K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="mx-offroad-master">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Stickman Epic -->  
+      <div class="game-card" data-category="action">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/stickman-epic/cover-1583233290522.png" alt="Stickman Epic">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag action">Action</span>  
+          <h3 class="game-title">Stickman Epic</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">312K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="stickman-epic">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Stickman WW2 -->  
+      <div class="game-card" data-category="action">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/stickman-ww2/cover-1583400805574.png" alt="Stickman WW2">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag action">Action</span>  
+          <h3 class="game-title">Stickman WW2</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">289K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="stickman-ww2">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- K Sniper Challenge 3D -->  
+      <div class="game-card" data-category="shooting">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/k-sniper-challenge-3d/cover-1583233999693.png" alt="K Sniper Challenge 3D">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag shooting">Shooting</span>  
+          <h3 class="game-title">K Sniper Challenge 3D</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">267K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="k-sniper-challenge-3d">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Smash Karts -->  
+      <div class="game-card" data-category="racing">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/smash-karts/cover-1584975129006.png" alt="Smash Karts">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag racing">Racing</span>  
+          <h3 class="game-title">Smash Karts</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★★</div>  
+            <div class="plays">654K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="smash-karts">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Snake IO -->  
+      <div class="game-card" data-category="action">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/snake-io/cover-1583401205146.png" alt="Snake IO">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag action">Action</span>  
+          <h3 class="game-title">Snake IO</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">489K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="snake-io">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Kour IO -->  
+      <div class="game-card" data-category="shooting">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/kour-io/cover-1583235980400.png" alt="Kour IO">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag shooting">Shooting</span>  
+          <h3 class="game-title">Kour IO</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★☆</div>  
+            <div class="plays">412K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="kour-io">Play Now</a>  
+        </div>  
+      </div>  
+      
+      <!-- Count Masters: Stickman Games -->  
+      <div class="game-card" data-category="action">  
+        <div class="game-image">  
+          <img src="https://img.crazygames.com/games/count-masters-stickman-games/cover-1664442257134.png" alt="Count Masters: Stickman Games">  
+        </div>  
+        <div class="game-info">  
+          <span class="category-tag action">Action</span>  
+          <h3 class="game-title">Count Masters: Stickman Games</h3>  
+          <div class="game-meta">  
+            <div class="rating">★★★★★</div>  
+            <div class="plays">532K plays</div>  
+          </div>  
+          <a href="#" class="play-btn" data-game="count-masters-stickman-games">Play Now</a>  
+        </div>  
+      </div>  
+    </div>  
+    
+    <!-- Pagination will be generated by JavaScript -->  
+    <div class="pagination" id="pagination"></div>  
+  </main>  
+  
+  <!-- Simplified Footer in English -->  
+  <footer>  
+    <div class="container">  
+      <div class="footer-content">  
+        <div class="footer-section">  
+          <h3>About Us</h3>  
+          <p>GameZone is dedicated to providing fun online HTML5 games that you can play for free. No downloads or installations needed.</p>  
+        </div>  
+        
+        <div class="footer-section">  
+          <h3>Help & Support</h3>  
+          <ul>  
+            <li><a href="#">Contact Us</a></li>  
+            <li><a href="#">Privacy Policy</a></li>  
+            <li><a href="#">Terms of Use</a></li>  
+          </ul>  
+        </div>  
+      </div>  
+      
+      <div class="footer-bottom">  
+        <p>© 2025 GameZone | Built with GitHub Pages | All rights reserved</p>  
+      </div>  
+    </div>  
+  </footer>  
+  
+  <script>  
+    document.addEventListener('DOMContentLoaded', function() {  
+      // Constants  
+      const GAMES_PER_PAGE = 8;  
+      
+      // Elements  
+      const categoryTabs = document.querySelectorAll('.category-tab');  
+      const gameCards = document.querySelectorAll('.game-card');  
+      const paginationContainer = document.getElementById('pagination');  
+      const playButtons = document.querySelectorAll('.play-btn');  
+      
+      // Variables  
+      let currentCategory = 'all';  
+      let currentPage = 1;  
+      
+      // Initialize: Remove empty category tabs  
+      hideEmptyCategories();  
+      
+      // Initialize: Show page 1 and set up pagination  
+      filterGames();  
+      
+      // Category tab click event  
+      categoryTabs.forEach(tab => {  
+        tab.addEventListener('click', function() {  
+          // Remove active class from all tabs  
+          categoryTabs.forEach(t => t.classList.remove('active'));  
+          
+          // Add active class to clicked tab  
+          this.classList.add('active');  
+          
+          // Update current category  
+          currentCategory = this.getAttribute('data-category');  
+          
+          // Reset to page 1 when changing categories  
+          currentPage = 1;  
+          
+          // Filter games and update pagination  
+          filterGames();  
+        });  
+      });  
+      
+      // Play button click event - redirects to game page  
+      playButtons.forEach(button => {  
+        button.addEventListener('click', function(e) {  
+          e.preventDefault();  
+          
+          const gameId = this.getAttribute('data-game');  
+          window.location.href = `game.html?id=${gameId}`;  
+        });  
+      });  
+      
+      // Image click event - redirects to game page  
+      document.querySelectorAll('.game-image').forEach(image => {  
+        image.addEventListener('click', function() {  
+          const gameCard = this.closest('.game-card');  
+          const playBtn = gameCard.querySelector('.play-btn');  
+          const gameId = playBtn.getAttribute('data-game');  
+          window.location.href = `game.html?id=${gameId}`;  
+        });  
+      });  
+      
+      // Filter games and update pagination  
+      function filterGames() {  
+        let visibleCount = 0;  
+        let visibleGames = [];  
+        
+        // First pass: count visible games based on category  
+        gameCards.forEach(card => {  
+          const cardCategory = card.getAttribute('data-category');  
+          
+          if (currentCategory === 'all' || cardCategory === currentCategory) {  
+            visibleGames.push(card);  
+            visibleCount++;  
+          }  
+        });  
+        
+        // Calculate total pages  
+        const totalPages = Math.ceil(visibleCount / GAMES_PER_PAGE);  
+        
+        // Second pass: show/hide games based on category and current page  
+        gameCards.forEach(card => {  
+          // Hide all cards first  
+          card.classList.add('hidden');  
+        });  
+        
+        // Show only the cards for the current page  
+        const startIndex = (currentPage - 1) * GAMES_PER_PAGE;  
+        const endIndex = Math.min(startIndex + GAMES_PER_PAGE, visibleGames.length);  
+        
+        for (let i = startIndex; i < endIndex; i++) {  
+          visibleGames[i].classList.remove('hidden');  
+        }  
+        
+        // Update pagination  
+        generatePagination(totalPages);  
+      }  
+      
+      // Generate pagination buttons  
+      function generatePagination(totalPages) {  
+        paginationContainer.innerHTML = '';  
+        
+        if (totalPages <= 1) {  
+          return; // No pagination needed for 1 or fewer pages  
+        }  
+        
+        for (let i = 1; i <= totalPages; i++) {  
+          const pageButton = document.createElement('div');  
+          pageButton.className = `page-button ${i === currentPage ? 'active' : ''}`;  
+          pageButton.textContent = i;  
+          
+          pageButton.addEventListener('click', function() {  
+            currentPage = i;  
+            document.querySelectorAll('.page-button').forEach(btn => btn.classList.remove('active'));  
+            this.classList.add('active');  
+            filterGames();  
+            window.scrollTo({ top: 0, behavior: 'smooth' });  
+          });  
+          
+          paginationContainer.appendChild(pageButton);  
+        }  
+      }  
+      
+      // Hide categories that don't have any games  
+      function hideEmptyCategories() {  
+        // Count games in each category  
+        const categoryCounts = {};  
+        
+        gameCards.forEach(card => {  
+          const category = card.getAttribute('data-category');  
+          categoryCounts[category] = (categoryCounts[category] || 0) + 1;  
+        });  
+        
+        // Hide category tabs with no games  
+        categoryTabs.forEach(tab => {  
+          const category = tab.getAttribute('data-category');  
+          if (category !== 'all' && (!categoryCounts[category] || categoryCounts[category] === 0)) {  
+            tab.style.display = 'none';  
+          }  
+        });  
+      }  
+    });  
+  </script>  
+</body>  
+</html>
